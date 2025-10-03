@@ -413,3 +413,94 @@ function updateFooterInfo() {
 
 // Initialize footer updates
 window.addEventListener("load", updateFooterInfo);
+
+// Mobile Portfolio Overlay on Scroll
+function initMobilePortfolioOverlay() {
+  const portfolioItems = document.querySelectorAll(".portfolio-item");
+
+  if (portfolioItems.length === 0) return;
+
+  // Check if we're on mobile
+  const isMobile = window.innerWidth <= 767;
+
+  if (!isMobile) return;
+
+  const observerOptions = {
+    // Create a centered band by shrinking the root area from top and bottom
+    // Only when the element's center enters this band it will intersect
+    root: null,
+    rootMargin: "-35% 0px -35% 0px",
+    threshold: 0.6,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const portfolioItem = entry.target;
+      const overlay = portfolioItem.querySelector(".portfolio-overlay");
+
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+        // Hide all other overlays first (but not the current one)
+        portfolioItems.forEach((otherItem) => {
+          if (otherItem !== portfolioItem) {
+            const otherOverlay = otherItem.querySelector(".portfolio-overlay");
+            if (otherOverlay) {
+              otherOverlay.style.opacity = "0";
+              otherOverlay.style.transform = "translateY(10px)";
+            }
+            otherItem.style.transform = "scale(1)";
+          }
+        });
+
+        // Show current overlay with animation
+        overlay.style.opacity = "1";
+        overlay.style.transform = "translateY(0)";
+
+        // Add a subtle pulse effect
+        portfolioItem.style.transform = "scale(1.02)";
+        setTimeout(() => {
+          portfolioItem.style.transform = "scale(1)";
+        }, 300);
+      } else {
+        // Hide overlay when leaving the band
+        if (overlay) {
+          overlay.style.opacity = "0";
+          overlay.style.transform = "translateY(10px)";
+        }
+        portfolioItem.style.transform = "scale(1)";
+      }
+    });
+  }, observerOptions);
+
+  // Observe all portfolio items
+  portfolioItems.forEach((item) => {
+    observer.observe(item);
+
+    // Set initial state
+    const overlay = item.querySelector(".portfolio-overlay");
+    if (overlay) {
+      overlay.style.transition = "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
+      overlay.style.opacity = "0";
+      overlay.style.transform = "translateY(10px)";
+    }
+  });
+}
+
+// Initialize mobile portfolio overlay
+window.addEventListener("load", initMobilePortfolioOverlay);
+
+// Re-initialize on window resize
+window.addEventListener("resize", () => {
+  // Clear existing observers
+  const portfolioItems = document.querySelectorAll(".portfolio-item");
+  portfolioItems.forEach((item) => {
+    const overlay = item.querySelector(".portfolio-overlay");
+    if (overlay) {
+      overlay.style.transition = "";
+      overlay.style.opacity = "";
+      overlay.style.transform = "";
+    }
+  });
+
+  // Re-initialize
+  setTimeout(initMobilePortfolioOverlay, 100);
+});

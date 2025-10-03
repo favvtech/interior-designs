@@ -444,6 +444,32 @@ body {
   opacity: 0.9;
 }
 
+/* Mobile-specific portfolio overlay enhancements */
+@media (max-width: 767px) {
+  .portfolio-overlay {
+    background: transparent;
+    backdrop-filter: none;
+    border-radius: 12px;
+  }
+
+  .portfolio-item {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .portfolio-overlay h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
+    font-weight: 700;
+  }
+
+  .portfolio-overlay p {
+    font-size: 0.9rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: 500;
+  }
+}
+
 /* CTA Section */
 .cta-section {
   padding: 80px 0;
