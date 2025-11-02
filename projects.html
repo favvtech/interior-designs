@@ -9,7 +9,12 @@
       content="ModernEdge Projects - Recent interior design projects in Lagos and beyond"
     />
     <title>Projects - ModernEdge</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E67E22'%3E%3Cpath d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9,22 9,12 15,12 15,22'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -58,7 +63,7 @@
       </div>
     </nav>
 
-    <section class="services-hero" style="padding-top: 120px">
+    <section class="services-hero pt-120">
       <div class="container">
         <h1>Our Projects</h1>
         <p>
@@ -69,26 +74,12 @@
       </div>
     </section>
 
-    <section class="portfolio-preview" id="projects" style="padding-top: 24px">
+    <section class="portfolio-preview section-tight-top" id="projects">
       <div class="container">
         <!-- Controls: category label + collapsible search -->
-        <div
-          class="projects-controls"
-          style="
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            align-items: center;
-            margin-bottom: 16px;
-          "
-        >
-          <div
-            id="projects-category-label"
-            style="font-weight: 600; color: #333"
-          >
-            All category
-          </div>
-          <div class="search-collapsible" style="margin-left: auto">
+        <div class="projects-controls">
+          <div id="projects-category-label">All category</div>
+          <div class="search-collapsible">
             <button class="search-icon-btn" aria-label="Search">
               <svg
                 width="18"
@@ -115,20 +106,13 @@
         <div id="projects-grid" class="portfolio-grid"></div>
 
         <!-- Empty / No results message -->
-        <div
-          id="projects-empty"
-          style="display: none; text-align: center; color: #666; margin: 24px 0"
-        >
+        <div id="projects-empty">
           No projects match your filters. Try adjusting filters or search terms.
         </div>
 
         <!-- See More -->
-        <div style="text-align: center; margin-top: 24px">
-          <button
-            id="projects-see-more"
-            class="btn-primary btn-small"
-            style="min-width: 140px"
-          >
+        <div class="see-more-wrap">
+          <button id="projects-see-more" class="btn-primary btn-small">
             See more
           </button>
         </div>
@@ -246,10 +230,52 @@
           <p class="last-modified">
             Last Modified: <span id="last-modified"></span>
           </p>
+          <p>
+            <a
+              href="attributions.html"
+              style="color: #ccc; text-decoration: none; font-size: 0.9rem"
+              >Attributions</a
+            >
+          </p>
         </div>
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Project Details Modal -->
+    <div id="project-modal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <div class="modal-header">
+          <h2 id="modal-title">Project Title</h2>
+          <p id="modal-category" class="modal-category">Category</p>
+        </div>
+        <div class="modal-body">
+          <img
+            id="modal-image"
+            src=""
+            alt="Project Image"
+            class="modal-image"
+          />
+          <div class="modal-details">
+            <p id="modal-description">Project description will appear here.</p>
+            <div class="modal-info">
+              <h3>Project Details</h3>
+              <p id="modal-details">Additional details will appear here.</p>
+            </div>
+            <div class="modal-actions">
+              <button
+                class="btn-primary"
+                onclick="window.location.href='contact.html'"
+              >
+                Get Quote
+              </button>
+              <button class="btn-secondary modal-close">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="scripts/main.js"></script>
   </body>
 </html>
